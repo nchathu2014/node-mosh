@@ -1,12 +1,16 @@
-const EventEmitter = require('events');
+const http = require('http');
 
+const server = http.createServer((req, res) => {
+    if (req.url === '/') {
+        res.write('<h1>Hello World!!!</h1>');
+        res.end();
+    }
 
-const Logger = require('./logger');
-const logger = new Logger();
-
-logger.on('messageLogged', (args) => {
-    console.log(args);
+    if (req.url === '/api/courses') {
+        res.write(JSON.stringify([1, 2, 3, 4]));
+        res.end();
+    }
 })
 
-
-logger.log('Nuwan');
+server.listen(3000);
+console.log('Listening port 3000....')
