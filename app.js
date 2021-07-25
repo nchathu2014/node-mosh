@@ -1,20 +1,12 @@
 const EventEmitter = require('events');
 
-//EventEmitter is a class and, we have to create an instance of that class to use it
 
-const eventEmitter = new EventEmitter();
+const Logger = require('./logger');
+const logger = new Logger();
 
-eventEmitter.on('messageLogged', function () {
-    console.log('Listener called');
+logger.on('messageLogged', (args) => {
+    console.log(args);
 })
 
 
-
-eventEmitter.emit('messageLogged');
-
-//=================================================
-
-
-
-eventEmitter.on('logging', (args) => console.log(args.message))
-eventEmitter.emit('logging', { message: 'This is the emit message' });
+logger.log('Nuwan');
