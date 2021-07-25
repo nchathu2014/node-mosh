@@ -1,16 +1,11 @@
-function sayHello(name) {
-    console.log(`Hello ${name}`)
-}
+const log = require('./logger');
 
-sayHello('Nuwan');
-
-/**
- *
- * console.log(window); window, document objects are not found here
- * Those are found in browser environment
- *  */
+log('I am a logger....')
 
 
+console.log(__filename);
+console.log(__dirname);
+//console.log(require);
+//console.log(module);
+//console.log(exports)
 
-let x = 100;
-console.log('z: ', global.x)
