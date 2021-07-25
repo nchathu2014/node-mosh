@@ -1,0 +1,23 @@
+{
+  "name": "node-mosh",
+  "version": "1.0.0",
+  "description": "Learning NodeJS with Mosh",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nchathu2014/node-mosh.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nchathu2014/node-mosh/issues"
+  },
+  "homepage": "https://github.com/nchathu2014/node-mosh#readme",
+  "dependencies": {
+    "underscore": "^1.13.1"
+  }
+}
