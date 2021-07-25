@@ -1,13 +1,20 @@
-const fs = require('fs');
+const EventEmitter = require('events');
 
-//Synchronous way
-const files = fs.readdirSync('./')
-console.log(files);
+//EventEmitter is a class and, we have to create an instance of that class to use it
 
-//Asynchornous way
-fs.readdir('./', function (err, files) {
-    if (err) console.log(`Error: ${err}`);
-    else {
-        console.log(files);
-    }
+const eventEmitter = new EventEmitter();
+
+eventEmitter.on('messageLogged', function () {
+    console.log('Listener called');
 })
+
+
+
+eventEmitter.emit('messageLogged');
+
+//=================================================
+
+
+
+eventEmitter.on('logging', (args) => console.log(args.message))
+eventEmitter.emit('logging', { message: 'This is the emit message' });
