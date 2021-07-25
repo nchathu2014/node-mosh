@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/nchathu2014/node-mosh#readme",
   "dependencies": {
+    "mongoose": "^5.13.3",
     "underscore": "^1.13.1"
   }
 }
