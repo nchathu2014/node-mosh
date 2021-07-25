@@ -1,8 +1,13 @@
-const os = require('os');
+const fs = require('fs');
 
-console.log(`
-    Archi: ${os.arch()}
-    CPUs: ${JSON.stringify(os.cpus())}
-    Free Memory: ${os.freemem() / (1024 * 1024 * 1024)}
-    Total Memory: ${os.totalmem() / (1024 * 1024 * 1024)}
-`);
+//Synchronous way
+const files = fs.readdirSync('./')
+console.log(files);
+
+//Asynchornous way
+fs.readdir('./', function (err, files) {
+    if (err) console.log(`Error: ${err}`);
+    else {
+        console.log(files);
+    }
+})
