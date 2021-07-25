@@ -1,5 +1,8 @@
-const path = require('path');
-const pathObj = path.parse(__filename);
+const os = require('os');
 
-console.log(pathObj);
-
+console.log(`
+    Archi: ${os.arch()}
+    CPUs: ${JSON.stringify(os.cpus())}
+    Free Memory: ${os.freemem() / (1024 * 1024 * 1024)}
+    Total Memory: ${os.totalmem() / (1024 * 1024 * 1024)}
+`);
