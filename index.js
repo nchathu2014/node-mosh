@@ -1,5 +1,7 @@
 const express = require('express');
 const _ = require('underscore');
+const Joi = require('joi');
+
 const app = express();
 app.use(express.json())
 
@@ -31,12 +33,16 @@ app.get('/api/courses/:id', (req, res) => {
 
 app.post('/api/courses', (req, res) => {
 
-    if (!req.body.name || req.body.name.length < 3) {
+    const schema = {
+        name: Joi.string().min(3).required()
+    };
+
+    const result = Joi.validate(req.body, schema);
+    if (result.error) {
         //Bad Request
-        res.status(400).send('Name required and length should be more than 3');
+        res.status(400).send(result.error.details[0].message);
         return;
     }
-
     const course = {
         id: courses.length + 1,
         name: req.body.name
