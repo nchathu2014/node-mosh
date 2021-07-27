@@ -26,8 +26,7 @@ app.get('/api/courses/:id', (req, res) => {
         return course.id === parseInt(courseId)
     })
 
-    if (!course) res.status(404).send('Course Not Found :(');
-
+    if (!course) return res.status(404).send('Course Not Found :(');
     res.send(course);
 });
 
@@ -40,9 +39,7 @@ app.post('/api/courses', (req, res) => {
     }
 
     const { error } = validateCourse(req.body)
-    if (error) {
-        res.status(400).send(error.details[0].message)
-    }
+    if (error) return res.status(400).send(error.details[0].message);
 
     courses.push(course);
     res.send(course);
@@ -59,18 +56,27 @@ app.put('/api/courses/:id', (req, res) => {
     })
 
     const { error } = validateCourse(req.body);
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    }
-
-    if (!course) res.status(404).send('Course Not Found :(');
+    if (error) return res.status(400).send(error.details[0].message);
+    if (!course) return res.status(404).send('Course Not Found :(');
 
     course.name = courseName;
     res.send(course);
 
 })
 
+app.delete('/api/courses/:id', (req, res) => {
+    const courseId = req.params.id;
+    const course = _.find(courses, function (course) {
+        return course.id === parseInt(courseId)
+    })
+
+    if (!course) return res.status(404).send('Course Not Found :(');
+    const index = courses.indexOf(course);
+    courses.splice(index, 1);
+
+    res.send(course)
+
+})
 
 //environment variables
 const port = process.env.PORT || 3000;
