@@ -34,21 +34,19 @@ app.get('/api/courses/:id', (req, res) => {
 app.post('/api/courses', (req, res) => {
 
 
-
     const course = {
         id: courses.length + 1,
         name: req.body.name
     }
 
-    const { error } = validateCourse(course);
-    if (!error) {
-        //Bad Request
-        res.status(400).send(result.error.details[0].message);
-        return;
+    const { error } = validateCourse(req.body)
+    if (error) {
+        res.status(400).send(error.details[0].message)
     }
 
     courses.push(course);
     res.send(course);
+
 });
 
 
@@ -60,13 +58,14 @@ app.put('/api/courses/:id', (req, res) => {
         return course.id === parseInt(courseId)
     })
 
-    const { error } = validateCourse(course);
-
-    if (!course) res.status(404).send('Course Not Found :(');
-    if (!error) {
+    const { error } = validateCourse(req.body);
+    if (error) {
         res.status(400).send(error.details[0].message);
         return;
     }
+
+    if (!course) res.status(404).send('Course Not Found :(');
+
     course.name = courseName;
     res.send(course);
 
@@ -82,7 +81,5 @@ function validateCourse(course) {
     const schema = {
         name: Joi.string().min(3).required()
     };
-    const result = Joi.validate(course, schema);
-
-    return result;
+    return Joi.validate(course, schema);
 }
