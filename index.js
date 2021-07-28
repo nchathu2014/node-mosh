@@ -2,11 +2,22 @@ const express = require('express');
 const _ = require('underscore');
 const Joi = require('joi');
 
+const morgan = require('morgan')
+const helmet = require("helmet");
 const logger = require('./middlewares/logging');
 const auth = require('./middlewares/auth');
 
 const app = express();
+
+//express middlewares (in-built)
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+
+//3rd party middlewares
+app.use(helmet());
+app.use(morgan('tiny'))
 
 //Create a custom middleware
 app.use(logger);
