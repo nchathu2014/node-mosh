@@ -2,8 +2,15 @@ const express = require('express');
 const _ = require('underscore');
 const Joi = require('joi');
 
+const logger = require('./middlewares/logging');
+const auth = require('./middlewares/auth');
+
 const app = express();
 app.use(express.json())
+
+//Create a custom middleware
+app.use(logger);
+app.use(auth);
 
 let courses = [
     { id: 1, name: 'Course 1' },
