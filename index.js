@@ -17,11 +17,22 @@ app.use(express.static('public'));
 
 //3rd party middlewares
 app.use(helmet());
-app.use(morgan('tiny'))
+
 
 //Create a custom middleware
 app.use(logger);
 app.use(auth);
+
+// ENVIRONMENTS
+
+console.log('ENV: ', process.env.NODE_ENV);
+console.log('ENV: ', app.get('env'));
+
+//Set the morgan middlware only to development ENV
+if (app.get('env') === 'development') {
+    app.use(morgan('tiny'));
+    console.log('Morgan Enabled...');
+}
 
 let courses = [
     { id: 1, name: 'Course 1' },
