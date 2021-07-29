@@ -14,6 +14,11 @@ const auth = require('./middlewares/auth');
 
 const app = express();
 
+//Set the view engin
+app.set('view engine', 'pug');
+app.set('views', './views'); // optional
+
+
 // ENVIRONMENTS
 
 startupDebugger('ENV: ', process.env.NODE_ENV);
@@ -35,6 +40,14 @@ let courses = [
     { id: 3, name: 'Course 3' },
     { id: 4, name: 'Course 4' },
 ];
+
+
+app.get('/', (req, res) => {
+    res.render('index', {
+        title: "My Express App",
+        message: "Hello World...!!!"
+    })
+});
 
 app.get('/health', (req, res) => {
     res.send('Ok');
