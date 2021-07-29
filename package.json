@@ -20,6 +20,7 @@
   "dependencies": {
     "@nchathu2014/simple-calculator": "^1.0.1",
     "config": "^3.3.6",
+    "debug": "^4.3.2",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "joi": "^13.1.0",

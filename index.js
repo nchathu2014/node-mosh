@@ -1,3 +1,7 @@
+const startupDebugger = require('debug')('app:startup');
+const dbDebugger = require('debug')('app:db');
+
+
 const express = require('express');
 const _ = require('underscore');
 const Joi = require('joi');
@@ -10,35 +14,20 @@ const auth = require('./middlewares/auth');
 
 const app = express();
 
-//express middlewares (in-built)
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-
-
-//3rd party middlewares
-app.use(helmet());
-
-
-//Create a custom middleware
-app.use(logger);
-app.use(auth);
-
 // ENVIRONMENTS
 
-console.log('ENV: ', process.env.NODE_ENV);
-console.log('ENV: ', app.get('env'));
+startupDebugger('ENV: ', process.env.NODE_ENV);
+startupDebugger('ENV: ', app.get('env'));
 
 //Set the morgan middlware only to development ENV
 if (app.get('env') === 'development') {
     app.use(morgan('tiny'));
-    console.log('Morgan Enabled...');
+    startupDebugger('Morgan Enabled...');
 }
 
-// Configurations
-console.log('APP: ', config.get('name'));
-console.log('MAIL-SERVER: ', config.get('mail.host'));
-console.log('PASSWORD: ', config.get('mail.password'));
+//DB work
+
+dbDebugger('This is a database related thing');
 
 let courses = [
     { id: 1, name: 'Course 1' },
@@ -115,7 +104,7 @@ app.delete('/api/courses/:id', (req, res) => {
 
 //environment variables
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening...to port ${port}`));
+app.listen(port, () => startupDebugger(`Listening...to port ${port}`));
 
 
 function validateCourse(course) {
