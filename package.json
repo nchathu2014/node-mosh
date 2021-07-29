@@ -19,6 +19,7 @@
   "homepage": "https://github.com/nchathu2014/node-mosh#readme",
   "dependencies": {
     "@nchathu2014/simple-calculator": "^1.0.1",
+    "config": "^3.3.6",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "joi": "^13.1.0",

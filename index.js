@@ -2,6 +2,7 @@ const express = require('express');
 const _ = require('underscore');
 const Joi = require('joi');
 
+const config = require('config');
 const morgan = require('morgan')
 const helmet = require("helmet");
 const logger = require('./middlewares/logging');
@@ -33,6 +34,11 @@ if (app.get('env') === 'development') {
     app.use(morgan('tiny'));
     console.log('Morgan Enabled...');
 }
+
+// Configurations
+console.log('APP: ', config.get('name'));
+console.log('MAIL-SERVER: ', config.get('mail.host'));
+console.log('PASSWORD: ', config.get('mail.password'));
 
 let courses = [
     { id: 1, name: 'Course 1' },
